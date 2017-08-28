@@ -17,10 +17,12 @@
 int main(int argc, char* argv[]){
     char data_file[MAX_FILE_NAME_LENGTH], prefix[MAX_PREFIX_LENGTH],
          output_file[MAX_FILE_NAME_LENGTH], input_prefix[MAX_PREFIX_LENGTH];
+    int multiple_output = FALSE;
     int i;
 
-    // overflow checks
     if(argc == SINGLE_PREFIX_INPUT){
+        /* if the input is only a one prefix for search */
+
         if(strlen(argv[1]) > MAX_FILE_NAME_LENGTH - 1){
             // strlen() does not include terminating character
 
@@ -38,10 +40,13 @@ int main(int argc, char* argv[]){
             MAX_PREFIX_LENGTH - 1);
             exit(EXIT_FAILURE);
         }
+        strcpy(data_file, argc[1]); // copy for clarity
+        strcpy(output_file, argv[2]);
+        strcpy(prefix, argv[3]);
     }
+    else{
 
-    strcpy(data_file, argc[1]); // copy for clarity
-    strcpy(prefix, argv[2]);
+    }
 
     while(scanf("%s", input_prefix) == SUCCESS){
 
