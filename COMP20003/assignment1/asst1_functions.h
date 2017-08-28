@@ -14,6 +14,7 @@ struct ter_char_node{
     ter_char_node_t *left, *equal, *right;
 };
 
+int check_input(char check_string[], char data_name[] int max_length);
 int read_and_insert_nodes(const char file_name[]);
 ter_char_node_t* insert(ter_char_node_t* pNode, char* word, int weight);
 void find_and_traverse(ter_char_node_t* pNode, char* prefix);
@@ -134,6 +135,18 @@ int read_and_insert_nodes(const char file_name[]){
 
     fclose(ptr_file);
     return 0;
+}
+
+int check_input(char check_string[], char data_name[], int max_length){
+    /* checks if length of the string is within max_length using strlen().
+       strlen() does not include terminating character*/
+
+       if(strlen(check_string) + 1 > max_length){
+           // strlen() does not include terminating character
+           printf("%s too long, limit %s characters.\n", data_name, max_length);
+           return FAILURE;
+       }
+       return SUCCESS;
 }
 
 void print_hello_world(){
