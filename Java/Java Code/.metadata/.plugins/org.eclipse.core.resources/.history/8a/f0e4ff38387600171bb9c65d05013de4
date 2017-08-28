@@ -1,0 +1,11 @@
+package test;
+
+public class pigLatin {
+	public static void main(String[] args){
+		String firstName = "Nge Nern";
+		String lastName = "Lai";
+		String pigFirst = firstName.substring(1) + firstName.substring(0,1) +  "ay";
+		String pigLast = lastName.substring(1) + lastName.substring(0,1) +  "ay";
+		System.out.println(pigFirst + "||" + pigLast);
+	}
+}
