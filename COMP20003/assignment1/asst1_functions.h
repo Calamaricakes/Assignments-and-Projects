@@ -15,7 +15,6 @@ struct ter_char_node{
 };
 
 int check_input(char check_string[], char data_name[] int max_length);
-int read_and_insert_nodes(const char file_name[]);
 ter_char_node_t* insert(ter_char_node_t* pNode, char* word, int weight);
 void find_and_traverse(ter_char_node_t* pNode, char* prefix);
 void traverse(ter_char_node_t* pNode, char* buffer, int depth);
@@ -113,28 +112,6 @@ void traverse(ter_char_node_t* pNode, char* buffer, int depth){
 
     traverse(pNode->equal, buffer, depth+1);
     traverse(pNode->right, buffer, depth+1);
-}
-
-int read_and_insert_nodes(const char file_name[]){
-    FILE* ptr_file;
-    char string_repo[250];
-    char* tok_ptr;
-    int weight;
-
-    ptr_file = fopen(file_name, "r");
-
-    if(!ptr_file){
-        return 0;
-    }
-
-    while(fgets(string_repo, 250, ptr_file) != NULL){
-        tok_ptr = strtok(string_repo, ";");
-        weight = atoi(tok_ptr);
-        tok_ptr = strtok(NULL, "\n");
-    }
-
-    fclose(ptr_file);
-    return 0;
 }
 
 int check_input(char check_string[], char data_name[], int max_length){
