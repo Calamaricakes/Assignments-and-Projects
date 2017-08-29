@@ -3,16 +3,20 @@
 #include <string.h>
 
 int main(int argc, char* argv[]){
-    int i;
+    FILE* file_ptr;
+    char characters[250];
 
-    printf("%s\n", argv[0]);
-
-    for(i = 0; i < argc; i++){
-        printf("%s\n", argv[i]);
+    file_ptr = fopen("test_words.csv", "r");
+    if(!file_ptr){
+        printf("Unable to open file\n");
+        exit(EXIT_FAILURE);
     }
-    /*while(scanf("%s", input) == 1){
-        printf("%s\n", input);
-    }*/
+    while(fgets(characters, 250, file_ptr) != NULL){
+        printf("HERE\n");
+        printf("%s\n", characters);
+    }
+
+    fclose(file_ptr);
     return 0;
 
 }
