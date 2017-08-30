@@ -4,6 +4,8 @@
 
 #define TRUE 1
 #define FALSE 0
+#define SUCCESS 1
+#define FAILURE 0
 
 typedef struct ter_char_node ter_char_node_t;
 
@@ -14,10 +16,11 @@ struct ter_char_node{
     ter_char_node_t *left, *equal, *right;
 };
 
-int check_input(char check_string[], char data_name[] int max_length);
+int check_invalid_input(char check_string[], char data_name[], int max_length);
 ter_char_node_t* insert(ter_char_node_t* pNode, char* word, int weight);
 void find_and_traverse(ter_char_node_t* pNode, char* prefix);
 void traverse(ter_char_node_t* pNode, char* buffer, int depth);
+void free_ternary_tree(ter_char_node_t* pNode);
 void print_hello();
 
 ter_char_node_t* insert(ter_char_node_t* pNode, char* word, int weight){
@@ -32,16 +35,16 @@ ter_char_node_t* insert(ter_char_node_t* pNode, char* word, int weight){
     assert(isalpha(*word));
 
     if (pNode == NULL){ //assign the node if it is empty
-        ter_char_node_t* new_node =
+        ter_char_node_t* new_node =info l
         (ter_char_node_t*)malloc(sizeof(ter_char_node_t));
         new_node->key = *word;
         new_node->end_of_flag = FALSE;
         new_node->left = new_node->equal = new_node->right = NULL;
     }
-    if(*word < pNode->key){// if the word is 'smaller'
+    if(*(word) < pNode->key){// if the word is 'smaller'
         pNode->left = insert(pNode->left, word, weight);
     }
-    else if(*word == pNode->key){ // if word is 'equal'
+    else if(*(word) == pNode->key){ // if word is 'equal'
         if(*(word+1) == '\0'){ //if the word has ended, put flag and weight
             pNode->end_of_flag = TRUE;
             pNode->weight = weight;
@@ -106,7 +109,7 @@ void traverse(ter_char_node_t* pNode, char* buffer, int depth){
     buffer[depth] = pNode->key;
 
     if(pNode->end_of_flag == TRUE){
-        buffer[depth+1] = '/0';
+        buffer[depth+1] = '\0';
         printf("%s\n", buffer);
     }
 
@@ -114,16 +117,25 @@ void traverse(ter_char_node_t* pNode, char* buffer, int depth){
     traverse(pNode->right, buffer, depth+1);
 }
 
-int check_input(char check_string[], char data_name[], int max_length){
+int check_invalid_input(char check_string[], char data_name[], int max_length){
     /* checks if length of the string is within max_length using strlen().
        strlen() does not include terminating character*/
 
        if(strlen(check_string) + 1 > max_length){
            // strlen() does not include terminating character
-           printf("%s too long, limit %s characters.\n", data_name, max_length);
-           return FAILURE;
+           printf("%s too long, limit %d characters.\n", data_name, max_length);
+           return SUCCESS;
        }
-       return SUCCESS;
+       return FAILURE;
+}
+void free_ternary_tree(ter_char_node_t* pNode){
+    if(!pNode){
+        return;
+    }
+    free_ternary_tree(pNode->left);
+    free_ternary_tree(pNode->equal);
+    free_ternary_tree(pNode->right);
+    free(pNode);
 }
 
 void print_hello_world(){

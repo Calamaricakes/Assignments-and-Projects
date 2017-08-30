@@ -2,21 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+void function(char* word, int length);
+
 int main(int argc, char* argv[]){
-    FILE* file_ptr;
-    char characters[250];
 
-    file_ptr = fopen("test_words.csv", "r");
-    if(!file_ptr){
-        printf("Unable to open file\n");
-        exit(EXIT_FAILURE);
-    }
-    while(fgets(characters, 250, file_ptr) != NULL){
-        printf("HERE\n");
-        printf("%s\n", characters);
-    }
-
-    fclose(file_ptr);
+    function("cherry", strlen("cherry"));
     return 0;
+
+}
+
+void function(char* word, int length){
+    int i;
+
+    for(i = 0; i < length; i++){
+        printf("%c\n", *(word+i));
+
+    }
 
 }
