@@ -28,8 +28,9 @@ int main(int argc, char* argv[]){
     FILE* ptr_file;
     ter_char_node_t* ter_char_root_node = NULL;
 
+    /*
     if(argc == SINGLE_PREFIX_INPUT){
-        /* if the input is only a one prefix for search */
+        // if the input is only a one prefix for search
 
         if(check_invalid_input(argv[1],"data file", MAX_FILE_NAME_LENGTH) ||
            check_invalid_input(argv[2],"output file", MAX_FILE_NAME_LENGTH) ||
@@ -41,7 +42,7 @@ int main(int argc, char* argv[]){
         strcpy(output_file, argv[2]);
         strcpy(search_prefix, argv[3]);
     }
-    else{
+    else{ */
 
         if(check_invalid_input(argv[1],"data file", MAX_FILE_NAME_LENGTH) ||
            check_invalid_input(argv[2],"output file", MAX_FILE_NAME_LENGTH)){
@@ -76,20 +77,19 @@ int main(int argc, char* argv[]){
 
         fclose(ptr_file);
         //end build tree
-        //search tree
 
         //search for the new search_prefix in tree
-        while(scanf("%s", search_prefix) == SUCCESS){
+        while(scanf(" %s", search_prefix) == SUCCESS){
             // scanning each prefix from input file
             if(check_invalid_input(search_prefix , "search prefix", MAX_PREFIX_LENGTH)){
                // check if the inputs are in valid length
                exit(EXIT_FAILURE);
             }
-            printf("%s\n", search_prefix);
+            //search tree for prefix
+            find_and_traverse(ter_char_root_node, search_prefix);
 
         }
         //free ternary tree
         free_ternary_tree(ter_char_root_node);
 
     }
-}

@@ -32,14 +32,22 @@ ter_char_node_t* insert(ter_char_node_t* pNode, char* word, int weight){
 */
     ter_char_node_t* root_node = pNode;
 
-    assert(isalpha(*word));
-
     if (pNode == NULL){ //assign the node if it is empty
-        ter_char_node_t* new_node =info l
+        ter_char_node_t* new_node =
         (ter_char_node_t*)malloc(sizeof(ter_char_node_t));
         new_node->key = *word;
         new_node->end_of_flag = FALSE;
         new_node->left = new_node->equal = new_node->right = NULL;
+
+        if(*(word+1) == '\0'){ //if there are no more characters to insert
+            new_node->end_of_flag = TRUE;
+            new_node->weight = weight;
+        }
+        else{
+            //continue to insert the new characters
+            new_node->equal = insert(new_node->equal, word+1, weight);
+        }
+        return new_node;
     }
     if(*(word) < pNode->key){// if the word is 'smaller'
         pNode->left = insert(pNode->left, word, weight);
@@ -60,17 +68,17 @@ ter_char_node_t* insert(ter_char_node_t* pNode, char* word, int weight){
 }
 
 void find_and_traverse(ter_char_node_t* pNode, char* prefix){
-/* find node in the tree that represents the prefix, if prefix is found
-   the pNode will point there if we reached the '\0' symbol, if the prefix
-   does not exist, then pNode should be null.
-*/
+/* find node in ternary tree that contains the prefix, if prefix is found
+   the pNode will point there if we reached the end of the search_prefix.
+   if the prefix does not exist, then pNode should be null. */
 
     char buffer[250];
 
-    while(*prefix != '\0' && pNode != NULL){
+    strcpy(buffer, prefix); //current word
 
-    // traverse tree to find first prefix, then traverse again to look for
-    // rest of the keys until it reaches end of search word.
+    while((*prefix != '\0') && (pNode != NULL)){
+
+    // traverse tree to find the end of the search prefix
 
         if (*prefix < pNode->key){
             pNode = pNode->left;
@@ -92,9 +100,11 @@ void find_and_traverse(ter_char_node_t* pNode, char* prefix){
     if(pNode){
     //  Include the prefix itself as a candidate if the prefix is a key.
         if(pNode->end_of_flag == TRUE){
-            buffer[strlen(prefix)+1] = '\0';
+            buffer[strlen(prefix)] = '\0';
             printf("%s\n", buffer);
         }
+        //print all the keys that contain the prefix
+
         traverse(pNode, buffer, strlen(prefix));
     }
 }
@@ -104,7 +114,7 @@ void traverse(ter_char_node_t* pNode, char* buffer, int depth){
     if(!pNode){
         return;
     }
-    traverse(pNode->left, buffer, depth);
+    traverse(pNode->left, buffer, depth+1);
 
     buffer[depth] = pNode->key;
 
@@ -132,6 +142,7 @@ void free_ternary_tree(ter_char_node_t* pNode){
     if(!pNode){
         return;
     }
+    printf("Hi\n");
     free_ternary_tree(pNode->left);
     free_ternary_tree(pNode->equal);
     free_ternary_tree(pNode->right);

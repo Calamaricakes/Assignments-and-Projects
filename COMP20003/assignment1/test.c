@@ -2,21 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-void function(char* word, int length);
-
 int main(int argc, char* argv[]){
 
-    function("cherry", strlen("cherry"));
-    return 0;
+    char cat[100];
 
-}
-
-void function(char* word, int length){
-    int i;
-
-    for(i = 0; i < length; i++){
-        printf("%c\n", *(word+i));
-
+    while(scanf(" %s", cat) == 1){
+        printf("%s\n", cat);
     }
+    return 0;
 
 }
