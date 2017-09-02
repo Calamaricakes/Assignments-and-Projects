@@ -92,4 +92,4 @@ int main(int argc, char* argv[]){
         //free ternary tree
         free_ternary_tree(ter_char_root_node);
 
-    }
+}

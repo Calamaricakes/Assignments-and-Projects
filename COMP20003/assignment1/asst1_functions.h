@@ -7,6 +7,8 @@
 #define SUCCESS 1
 #define FAILURE 0
 
+#define MAX_PREFIX_LENGTH 250
+
 typedef struct ter_char_node ter_char_node_t;
 
 struct ter_char_node{
@@ -72,9 +74,8 @@ void find_and_traverse(ter_char_node_t* pNode, char* prefix){
    the pNode will point there if we reached the end of the search_prefix.
    if the prefix does not exist, then pNode should be null. */
 
-    char buffer[250];
-
-    strcpy(buffer, prefix); //current word
+    char buffer[MAX_PREFIX_LENGTH];
+    int i = 0;
 
     while((*prefix != '\0') && (pNode != NULL)){
 
@@ -89,6 +90,10 @@ void find_and_traverse(ter_char_node_t* pNode, char* prefix){
             continue;
         }
         if (*prefix == pNode->key){
+            buffer[i++] = *prefix;
+            if(*(prefix+1) == '\0'){
+                break;
+            }
             pNode = pNode->equal;
             prefix++;
             continue;
@@ -99,32 +104,37 @@ void find_and_traverse(ter_char_node_t* pNode, char* prefix){
 
     if(pNode){
     //  Include the prefix itself as a candidate if the prefix is a key.
+
         if(pNode->end_of_flag == TRUE){
-            buffer[strlen(prefix)] = '\0';
+            buffer[strlen(buffer)] = '\0';
             printf("%s\n", buffer);
         }
         //print all the keys that contain the prefix
 
-        traverse(pNode, buffer, strlen(prefix));
+        traverse(pNode->equal, buffer, strlen(buffer));
     }
 }
 
 void traverse(ter_char_node_t* pNode, char* buffer, int depth){
 
+    int i;
+
     if(!pNode){
         return;
     }
-    traverse(pNode->left, buffer, depth+1);
 
+    traverse(pNode->left, buffer, depth);
     buffer[depth] = pNode->key;
 
     if(pNode->end_of_flag == TRUE){
         buffer[depth+1] = '\0';
-        printf("%s\n", buffer);
+        for(i = 0; i < strlen(buffer); i++){
+            printf("%c\n", buffer[i] );
+        }
+        printf("HERE: %s\n", buffer);
     }
-
     traverse(pNode->equal, buffer, depth+1);
-    traverse(pNode->right, buffer, depth+1);
+    traverse(pNode->right, buffer, depth);
 }
 
 int check_invalid_input(char check_string[], char data_name[], int max_length){
@@ -142,7 +152,6 @@ void free_ternary_tree(ter_char_node_t* pNode){
     if(!pNode){
         return;
     }
-    printf("Hi\n");
     free_ternary_tree(pNode->left);
     free_ternary_tree(pNode->equal);
     free_ternary_tree(pNode->right);
