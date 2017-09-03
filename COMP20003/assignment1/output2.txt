@@ -1,0 +1,50 @@
+Prefix: Melb
+key: Melbeck, Germany --> weight: 3358
+key: Melbourn, United Kingdom --> weight: 4394
+key: Melbourne Beach, Florida, United States --> weight: 3101
+key: Melbourne, Arkansas, United States --> weight: 1848
+key: Melbourne, Florida, United States --> weight: 76068
+key: Melbourne, United Kingdom --> weight: 4404
+key: Melbourne, Victoria, Australia --> weight: 3730206
+key: Melbu, Norway --> weight: 2161
+
+key: Melbourne, Arkansas, United States --> weight: 1848
+key: Melbu, Norway --> weight: 2161
+key: Melbourne Beach, Florida, United States --> weight: 3101
+key: Melbeck, Germany --> weight: 3358
+key: Melbourn, United Kingdom --> weight: 4394
+key: Melbourne, United Kingdom --> weight: 4404
+key: Melbourne, Florida, United States --> weight: 76068
+key: Melbourne, Victoria, Australia --> weight: 3730206
+
+Prefix: Barcel
+key: Barcellona Pozzo di Gotto, Italy --> weight: 41258
+key: Barcelona, Philippines --> weight: 3541
+key: Barcelona, Spain --> weight: 1621537
+key: Barcelona, Venezuela --> weight: 424795
+key: Barceloneta, Puerto Rico --> weight: 22322
+key: Barcelonne-du-Gers, France --> weight: 1379
+key: Barcelonnette, France --> weight: 3487
+key: Barcelos, Brazil --> weight: 7353
+key: Barcelos, Portugal --> weight: 19085
+
+key: Barcelonne-du-Gers, France --> weight: 1379
+key: Barcelonnette, France --> weight: 3487
+key: Barcelona, Philippines --> weight: 3541
+key: Barcelos, Brazil --> weight: 7353
+key: Barcelos, Portugal --> weight: 19085
+key: Barceloneta, Puerto Rico --> weight: 22322
+key: Barcellona Pozzo di Gotto, Italy --> weight: 41258
+key: Barcelona, Venezuela --> weight: 424795
+key: Barcelona, Spain --> weight: 1621537
+
+Prefix: barcel
+NOTFOUND
+
+
+Prefix: Melb found with 8 char comparisons
+Selection Sort: 0 weight comparisons
+Prefix: Barcel found with 11 char comparisons
+Selection Sort: 7 weight comparisons
+Prefix: barcel found with 9 char comparisons
+Selection Sort: 12 weight comparisons

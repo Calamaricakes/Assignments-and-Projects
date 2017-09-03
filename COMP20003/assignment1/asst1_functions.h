@@ -18,10 +18,25 @@ struct ter_char_node{
     ter_char_node_t *left, *equal, *right;
 };
 
+typedef struct stats{
+    int weight;
+    char search_prefix[MAX_PREFIX_LENGTH];
+}stats_t;
+
+typedef struct data_info{
+    int num_prefix_nodes;
+    int num_comparisons;
+    int num_search_comparisons;
+    char search_prefix[MAX_PREFIX_LENGTH];
+}data_info_t;
+
 int check_invalid_input(char check_string[], char data_name[], int max_length);
 ter_char_node_t* insert(ter_char_node_t* pNode, char* word, int weight);
-void find_and_traverse(ter_char_node_t* pNode, char* prefix);
+int find_and_traverse(ter_char_node_t* pNode, char* prefix);
+data_info_t find_and_traverse2(ter_char_node_t* pNode, char* prefix, stats_t* info_arr);
 void traverse(ter_char_node_t* pNode, char* buffer, int depth);
+int traverse2(ter_char_node_t* pNode, char* buffer, int depth, stats_t* info_arr, int hot_potato);
+int sort_prefix_results_decending(stats_t arr[], int n);
 void free_ternary_tree(ter_char_node_t* pNode);
 void print_hello();
 
@@ -69,13 +84,16 @@ ter_char_node_t* insert(ter_char_node_t* pNode, char* word, int weight){
     return root_node;
 }
 
-void find_and_traverse(ter_char_node_t* pNode, char* prefix){
+int find_and_traverse(ter_char_node_t* pNode, char* prefix){
 /* find node in ternary tree that contains the prefix, if prefix is found
    the pNode will point there if we reached the end of the search_prefix.
    if the prefix does not exist, then pNode should be null. */
 
-    char buffer[MAX_PREFIX_LENGTH];
+    char buffer[MAX_PREFIX_LENGTH] = {0};
     int i = 0;
+    int num_comparisons = 0;
+
+    printf("Prefix: %s\n", prefix);
 
     while((*prefix != '\0') && (pNode != NULL)){
 
@@ -83,14 +101,17 @@ void find_and_traverse(ter_char_node_t* pNode, char* prefix){
 
         if (*prefix < pNode->key){
             pNode = pNode->left;
+            num_comparisons++;
             continue;
         }
         if (*prefix > pNode->key){
             pNode = pNode->right;
+            num_comparisons++;
             continue;
         }
         if (*prefix == pNode->key){
             buffer[i++] = *prefix;
+            num_comparisons++;
             if(*(prefix+1) == '\0'){
                 break;
             }
@@ -106,18 +127,21 @@ void find_and_traverse(ter_char_node_t* pNode, char* prefix){
     //  Include the prefix itself as a candidate if the prefix is a key.
 
         if(pNode->end_of_flag == TRUE){
-            buffer[strlen(buffer)] = '\0';
+            buffer[i] = '\0';
             printf("%s\n", buffer);
         }
         //print all the keys that contain the prefix
 
-        traverse(pNode->equal, buffer, strlen(buffer));
+        traverse(pNode->equal, buffer, i);
+        return num_comparisons;
+    }
+    else{
+        printf("NOTFOUND\n");
+        return num_comparisons;
     }
 }
 
 void traverse(ter_char_node_t* pNode, char* buffer, int depth){
-
-    int i;
 
     if(!pNode){
         return;
@@ -128,13 +152,122 @@ void traverse(ter_char_node_t* pNode, char* buffer, int depth){
 
     if(pNode->end_of_flag == TRUE){
         buffer[depth+1] = '\0';
-        for(i = 0; i < strlen(buffer); i++){
-            printf("%c\n", buffer[i] );
-        }
-        printf("HERE: %s\n", buffer);
+        printf("key: %s --> weight: %d\n", buffer, pNode->weight);
     }
     traverse(pNode->equal, buffer, depth+1);
     traverse(pNode->right, buffer, depth);
+}
+
+data_info_t find_and_traverse2(ter_char_node_t* pNode, char* prefix, stats_t* info_arr){
+/* find node in ternary tree that contains the prefix, if prefix is found
+   the pNode will point there if we reached the end of the search_prefix.
+   if the prefix does not exist, then pNode should be null. */
+
+    char buffer[MAX_PREFIX_LENGTH] = {0};
+    int i = 0;
+    int num_comparisons = 0;
+    data_info_t info_node;
+
+    printf("Prefix: %s\n", prefix);
+
+    while((*prefix != '\0') && (pNode != NULL)){
+
+    // traverse tree to find the end of the search prefix
+
+        if (*prefix < pNode->key){
+            pNode = pNode->left;
+            num_comparisons++;
+            continue;
+        }
+        if (*prefix > pNode->key){
+            pNode = pNode->right;
+            num_comparisons++;
+            continue;
+        }
+        if (*prefix == pNode->key){
+            buffer[i++] = *prefix;
+            num_comparisons++;
+            if(*(prefix+1) == '\0'){
+                break;
+            }
+            pNode = pNode->equal;
+            prefix++;
+            continue;
+        }
+    }
+    // pNode now points at the end of the search word, now search for candidate
+    // autocomplete keys
+
+    if(pNode){
+    //  Include the prefix itself as a candidate if the prefix is a key.
+
+        if(pNode->end_of_flag == TRUE){
+            buffer[i] = '\0';
+        }
+        //print all the keys that contain the prefix
+
+        info_node.num_prefix_nodes = traverse2(pNode->equal, buffer, i, info_arr, 0);
+        info_node.num_comparisons = num_comparisons;
+        return info_node;
+    }
+    else{
+        printf("NOTFOUND\n");
+        info_node.num_prefix_nodes = 0;
+        info_node.num_comparisons = num_comparisons;
+        return info_node;
+    }
+}
+
+int traverse2(ter_char_node_t* pNode, char* buffer, int depth, stats_t* info_arr, int hot_potato){
+
+    if(!pNode){
+        return hot_potato;
+    }
+    stats_t prefix_node;
+
+    hot_potato = traverse2(pNode->left, buffer, depth, info_arr, hot_potato);
+
+    buffer[depth] = pNode->key;
+
+    if(pNode->end_of_flag){
+        buffer[depth+1] = '\0';
+        prefix_node.weight = pNode->weight;
+        strcpy(prefix_node.search_prefix, buffer);
+    }
+
+    hot_potato = traverse2(pNode->equal, buffer, depth+1, info_arr, hot_potato);
+    hot_potato = traverse2(pNode->right, buffer, depth, info_arr, hot_potato);
+
+    if(pNode->end_of_flag){
+        info_arr[hot_potato] = prefix_node; //** ASSIGNED TO info_arr
+        return hot_potato + 1;
+    }
+    else{
+        return hot_potato;
+    }
+}
+
+int sort_prefix_results_decending(stats_t arr[], int n){
+    int i, j, num_comparisons = 0;
+    int max_value = -1, index_max_value;
+    stats_t holder;
+
+    for(i = 0; i < n - 1; i++){
+        max_value = arr[i].weight;
+        for(j = i + 1; j < n; j++){
+            if(arr[j].weight < max_value){
+                num_comparisons++;
+                max_value = arr[j].weight;
+                index_max_value = j;
+            }
+        }
+        if(arr[i].weight != max_value){
+            holder = arr[i];
+            arr[i] = arr[index_max_value];
+            arr[index_max_value] = holder;
+        }
+    }
+    return num_comparisons;
 }
 
 int check_invalid_input(char check_string[], char data_name[], int max_length){

@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <ctype.h>
-#include <unistd.h> //for output duplication
 #include "asst1_functions.h"
 
 #define TRUE 1
@@ -27,7 +26,9 @@ int main(int argc, char* argv[]){
     int weight, i, node_index = 0;
     FILE* ptr_input_file;
     ter_char_node_t* ter_char_root_node = NULL;
-    stats_t search_information[MAX_NUM_SEARCH_PREFIX];
+    stats_t prefix_results[MAX_NUM_SEARCH_PREFIX];
+    data_info_t search_information[MAX_NUM_SEARCH_PREFIX];
+    data_info_t prefix_node;
 
     if(check_invalid_input(argv[1],"data file", MAX_FILE_NAME_LENGTH) ||
         check_invalid_input(argv[2],"output file", MAX_FILE_NAME_LENGTH)){
@@ -76,11 +77,31 @@ int main(int argc, char* argv[]){
             // check if the inputs are in valid length
             exit(EXIT_FAILURE);
         }
-        //search tree for prefiX
+        //search tree for prefix
+
+        prefix_node = find_and_traverse2(ter_char_root_node,
+            search_prefix, prefix_results);
         search_information[node_index].num_comparisons =
-        find_and_traverse(ter_char_root_node, search_prefix);
+            prefix_node.num_comparisons;
+        search_information[node_index].num_prefix_nodes =
+            prefix_node.num_prefix_nodes;
         strcpy(search_information[node_index].search_prefix, search_prefix);
+
         node_index++;
+
+        for(i = 0; i < prefix_node.num_prefix_nodes; i++){
+            printf("key: %s --> weight: %d\n", prefix_results[i].search_prefix,
+            prefix_results[i].weight);
+        }
+        printf("\n");
+        search_information[node_index].num_search_comparisons =
+            sort_prefix_results_decending(prefix_results,
+                 prefix_node.num_prefix_nodes);
+
+        for(i = 0; i < prefix_node.num_prefix_nodes; i++){
+            printf("key: %s --> weight: %d\n", prefix_results[i].search_prefix,
+            prefix_results[i].weight);
+        }
         printf("\n");
 
         if(node_index >= MAX_NUM_SEARCH_PREFIX){
@@ -96,6 +117,8 @@ int main(int argc, char* argv[]){
         printf("Prefix: %s found with %d char comparisons\n",
         search_information[i].search_prefix,
         search_information[i].num_comparisons);
+        printf("Selection Sort: %d weight comparisons\n",
+        search_information[i].num_search_comparisons);
     }
     fclose(stdout);
 
