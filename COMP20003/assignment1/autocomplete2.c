@@ -1,32 +1,18 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <ctype.h>
 #include "asst1_functions.h"
-
-#define TRUE 1
-#define FALSE 0
-#define SUCCESS 1
-#define FAILURE 0
-#define MAX_FILE_NAME_LENGTH 100
-#define MAX_PREFIX_LENGTH 250
-#define MAX_DATA_INPUT 250
-#define MAX_NUM_SEARCH_PREFIX 50
-#define MAX_CONSOLE_OUTPUT 500
 
 int main(int argc, char* argv[]){
     /* Program creates a referencial ternary char tree for the purpose of an
        string autocomplete program. Ternary char tree is made from data_file
        (argv[1]), outputs the result of the search to a file(argv[2]) .
     */
-    char data_file[MAX_FILE_NAME_LENGTH], search_prefix[MAX_PREFIX_LENGTH],
-         output_file[MAX_FILE_NAME_LENGTH], data_for_tree[MAX_DATA_INPUT];
+    char data_file[MAX_FILE_NAME_LENGTH], output_file[MAX_FILE_NAME_LENGTH],
+         search_prefix[MAX_PREFIX_LENGTH], data_for_tree[MAX_DATA_INPUT];
     char* ptr_token;
-    int weight, i, node_index = 0;
+    int i, weight, node_index = 0;
+
     FILE* ptr_input_file;
     ter_char_node_t* ter_char_root_node = NULL;
-    stats_t prefix_results[MAX_NUM_SEARCH_PREFIX];
+    stats2_t prefix_results[MAX_NUM_SEARCH_PREFIX];
     data_info_t search_information[MAX_NUM_SEARCH_PREFIX];
     data_info_t prefix_node;
 
@@ -58,12 +44,13 @@ int main(int argc, char* argv[]){
         ptr_token = strtok(data_for_tree, ";");
         weight = atoi(ptr_token);       // weight as int for a prefix
         ptr_token = strtok(NULL, "\n"); // key as string for the prefix
-        ter_char_root_node = insert(ter_char_root_node, ptr_token, weight);
+        ter_char_root_node = insert_in_ternary_tree(ter_char_root_node, ptr_token, weight);
     }
 
     fclose(ptr_input_file);
     //end build tree
 
+    //write all stdout to file
     if(!freopen(output_file, "w", stdout)){
         printf("Output file cannot be opened.\n");
         exit(EXIT_FAILURE);
@@ -72,6 +59,7 @@ int main(int argc, char* argv[]){
     //search for the new search_prefix in tree
     while(scanf(" %s", search_prefix) == SUCCESS){
         // scanning each prefix from input file
+
         if(check_invalid_input(search_prefix , "search prefix",
          MAX_PREFIX_LENGTH)){
             // check if the inputs are in valid length
@@ -79,30 +67,32 @@ int main(int argc, char* argv[]){
         }
         //search tree for prefix
 
+        //obtain a struct of info
         prefix_node = find_and_traverse2(ter_char_root_node,
             search_prefix, prefix_results);
+
+        //record the information into an array of structs
         search_information[node_index].num_comparisons =
             prefix_node.num_comparisons;
         search_information[node_index].num_prefix_nodes =
             prefix_node.num_prefix_nodes;
         strcpy(search_information[node_index].search_prefix, search_prefix);
 
-        node_index++;
 
-        for(i = 0; i < prefix_node.num_prefix_nodes; i++){
-            printf("key: %s --> weight: %d\n", prefix_results[i].search_prefix,
-            prefix_results[i].weight);
-        }
-        printf("\n");
+        //save search_information and sort according to weight in
+        //decending order
         search_information[node_index].num_search_comparisons =
             sort_prefix_results_decending(prefix_results,
-                 prefix_node.num_prefix_nodes);
+                search_information[node_index].num_prefix_nodes);
 
-        for(i = 0; i < prefix_node.num_prefix_nodes; i++){
+        //print sorted autocomplete results
+        for(i = 0; i < search_information[node_index].num_prefix_nodes; i++){
             printf("key: %s --> weight: %d\n", prefix_results[i].search_prefix,
             prefix_results[i].weight);
         }
+
         printf("\n");
+        node_index++;
 
         if(node_index >= MAX_NUM_SEARCH_PREFIX){
             printf("Too many search terms\n");

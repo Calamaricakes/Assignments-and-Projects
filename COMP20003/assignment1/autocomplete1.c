@@ -1,30 +1,14 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <ctype.h>
-#include <unistd.h> //for output duplication
 #include "asst1_functions.h"
-
-#define TRUE 1
-#define FALSE 0
-#define SUCCESS 1
-#define FAILURE 0
-#define MAX_FILE_NAME_LENGTH 100
-#define MAX_PREFIX_LENGTH 250
-#define MAX_DATA_INPUT 250
-#define MAX_NUM_SEARCH_PREFIX 50
-#define MAX_CONSOLE_OUTPUT 500
 
 int main(int argc, char* argv[]){
     /* Program creates a referencial ternary char tree for the purpose of an
        string autocomplete program. Ternary char tree is made from data_file
-       (argv[1]), outputs the result of the search to a file(argv[2]) .
+       (argv[1]), outputs the result of the search to a file(argv[2]).
     */
     char data_file[MAX_FILE_NAME_LENGTH], search_prefix[MAX_PREFIX_LENGTH],
          output_file[MAX_FILE_NAME_LENGTH], data_for_tree[MAX_DATA_INPUT];
     char* ptr_token;
-    int weight, i, node_index = 0;
+    int i, weight, node_index = 0;
     FILE* ptr_input_file;
     ter_char_node_t* ter_char_root_node = NULL;
     stats_t search_information[MAX_NUM_SEARCH_PREFIX];
@@ -57,12 +41,15 @@ int main(int argc, char* argv[]){
         ptr_token = strtok(data_for_tree, ";");
         weight = atoi(ptr_token);       // weight as int for a prefix
         ptr_token = strtok(NULL, "\n"); // key as string for the prefix
-        ter_char_root_node = insert(ter_char_root_node, ptr_token, weight);
+        ter_char_root_node = insert_in_ternary_tree(ter_char_root_node,
+            ptr_token, weight);
+
     }
 
     fclose(ptr_input_file);
     //end build tree
 
+    //write all stdout to file
     if(!freopen(output_file, "w", stdout)){
         printf("Output file cannot be opened.\n");
         exit(EXIT_FAILURE);
@@ -71,16 +58,20 @@ int main(int argc, char* argv[]){
     //search for the new search_prefix in tree
     while(scanf(" %s", search_prefix) == SUCCESS){
         // scanning each prefix from input file
+
         if(check_invalid_input(search_prefix , "search prefix",
          MAX_PREFIX_LENGTH)){
             // check if the inputs are in valid length
             exit(EXIT_FAILURE);
         }
+
         //search tree for prefiX
         search_information[node_index].num_comparisons =
         find_and_traverse(ter_char_root_node, search_prefix);
         strcpy(search_information[node_index].search_prefix, search_prefix);
-        node_index++;
+        //save search info to a struct of search_information array
+
+        node_index++; //point to next struct
         printf("\n");
 
         if(node_index >= MAX_NUM_SEARCH_PREFIX){
@@ -97,7 +88,7 @@ int main(int argc, char* argv[]){
         search_information[i].search_prefix,
         search_information[i].num_comparisons);
     }
-    fclose(stdout);
+    fclose(stdout); //close stdout to file
 
     //free ternary tree
     free_ternary_tree(ter_char_root_node);
