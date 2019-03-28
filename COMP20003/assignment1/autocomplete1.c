@@ -88,8 +88,10 @@ int main(int argc, char* argv[]){
         search_information[i].search_prefix,
         search_information[i].num_comparisons);
     }
-    fclose(stdout); //close stdout to file
 
     //free ternary tree
     free_ternary_tree(ter_char_root_node);
+    fclose(stdout); //close stdout to file
+
+    return 0;
 }

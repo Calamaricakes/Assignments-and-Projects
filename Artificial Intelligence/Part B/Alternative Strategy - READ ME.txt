@@ -1,0 +1,44 @@
+Alternative Strategy
+
+Strategy description
+We had analysed the game and came up with an alternative strategy that uses a valuation function that evaluations the amount of 'space' that could be directly
+controlled by our pieces. We hypothesised that many of our opponents would form branches from the legal moves of each of their pieces. Therefore, if we can control 
+the number of legal moves that our opponents can make by limiting the amount of space they have to work with, we have a winning advantage. 
+
+Description of spaces controlled
+The spaces controlled by our pieces are the squares our pieces have current influence over, meaning the first square in each direction of the piece. 
+We observed that there are certain structures or patterns of pieces that have a strong influence over the squares that they control.
+
+Strong structures and patterns
+Placing our pieces in certain configurations on the board can ensure that we have a strategic advantage from the start, we will start with the simplest and strongest 
+structure:
+	
+	Knight:	- The knight pattern of pieces includes two or more pieces that have a manhattan distance of exactly 3 between each other. Its properties are also 
+		  symmetric on any axis.
+		
+			For example:  O . . 
+				      . . O
+		
+		- This configuration is strong due to the fact that no rational opponent would move into the middle column. This is due to the fact that we can
+		  remove said piece in only one move.
+
+		- It can also easily form chains between other pieces that create death zones for our opponents, which bolds well with our overall strategy of
+		  controlling space. 
+
+Game Strategy
+
+Placing
+By placing our pieces strategicly, we can have a 'space' advantage in the placing phase that would benefit us in the moving phase. We start forming the knight
+pattern chains from the first move, ensuring that we prioritise the center as much as possible. Of course, any rational player would not place a piece next to
+an opponent's as it can be taken with the opponents next move. 
+
+Moving:
+Now that we have equal if not more space than our opponent, start to maneuver our piece in a way that constantly prioritises the amount of space that is controlled.
+In the moving phase, we do not prioritise kills unless it would result in equal or more spaces that are currently controlled. Hopefully, this practice would allow 
+our pieces to be more strategicly placed compared to our opponent. We must note that this strategy depends on a cumulation of all the small space advantages that we
+have cultivated. Hopefully, by the end of the game we would control a sufficient amount of space to be able to force our opponents into even worst positions.
+
+Problems
+Given the time constraints, we were not able to complete the code for this specific strategy. However, we would like to be able to submit it to the tournament to
+test our strategy if it is permitted. The code that we are submitting on this strategy is uncommented and messy, but do take it as a genuine effort by us in developing
+alternative strategies.  

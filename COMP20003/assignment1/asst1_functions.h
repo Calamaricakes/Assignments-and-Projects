@@ -10,7 +10,7 @@
 #define MAX_FILE_NAME_LENGTH 100
 #define MAX_PREFIX_LENGTH 250
 #define MAX_DATA_INPUT 250
-#define MAX_NUM_SEARCH_PREFIX 50
+#define MAX_NUM_SEARCH_PREFIX 1000
 #define MAX_CONSOLE_OUTPUT 500
 
 typedef struct ter_char_node ter_char_node_t;
@@ -110,7 +110,7 @@ int find_and_traverse(ter_char_node_t* pNode, char* prefix){
    the pNode will point there if we reached the end of the search_prefix.
    if the prefix does not exist, then pNode should be null. */
 
-    char buffer[MAX_PREFIX_LENGTH] = {0}; //unusual behaviour when not initialised
+    char buffer[MAX_PREFIX_LENGTH]; //unusual behaviour when not initialised
     int i = 0;
     int num_comparisons = 0;
 
