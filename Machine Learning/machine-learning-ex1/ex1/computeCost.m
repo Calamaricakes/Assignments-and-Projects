@@ -13,6 +13,13 @@ J = 0;
 % Instructions: Compute the cost of a particular choice of theta
 %               You should set J to the cost.
 
+% computes the cost function, J(theta).
+% (X * theta) -> matrix of values produced by the hypothesis 
+% (X * theta - y).^2 ) -> a matrix containing the Squared Error values
+% sum ( (X * theta - y).^2 ) -> add up the total errors produced by hypothesis
+% sum ( (X * theta - y).^2 ) / (2 * m) -> divides the total by the number of
+% training examples
+
 J = sum ( (X * theta - y).^2 ) / (2 * m);
 
 

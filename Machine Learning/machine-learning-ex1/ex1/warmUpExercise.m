@@ -9,9 +9,8 @@ A = [];
 %               represent the return values (at the top of the file)
 %               and then set them accordingly.
 
-
+% makes a 5x5 identity matrix
 A = eye(5);
-
 
 
 

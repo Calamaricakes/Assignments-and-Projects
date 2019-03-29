@@ -80,7 +80,7 @@ theta = gradientDescent(X, y, theta, alpha, iterations);
 fprintf('Theta found by gradient descent:\n');
 fprintf('%f\n', theta);
 fprintf('Expected theta values (approx)\n');
-fprintf(' -3.6303\n  1.1664\n\n');
+fprintf('-3.6303\n 1.1664\n\n');
 
 % Plot the linear fit
 hold on; % keep previous plot visible
