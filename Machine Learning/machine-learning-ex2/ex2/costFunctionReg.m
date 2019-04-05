@@ -16,18 +16,26 @@ grad = zeros(size(theta));
 
 sigmoid_output = sigmoid(X*theta);
 
-partA = -(1/m)*( y'*log(sigmoid_output) + (1 - y')*log(1-sigmoid_output) );
-
 theta_no0 = theta(2:size(theta,1),:);
 
-partB = (lambda/(2*m))*theta_no0'*theta_no0;
+% Cost Calculation
 
-J = partA + partB;
+logisticRegressionCost = -(1/m)*( y'*log(sigmoid_output) + (1 - y')*log(1-sigmoid_output) );
 
-grad = ( 1/m ) * ( X'*(sigmoid_output - y) ) + (lambda/m)*theta;
+regularisationCost = (lambda/(2*m))*theta_no0'*theta_no0;
 
-% 1 to represent x0
-grad(1) = (( 1/m ) * ( X'*(sigmoid_output - y) ))(1);
+J = logisticRegressionCost + regularisationCost;
+
+% Gradient Calculation
+
+gradientComponent = ( 1/m ) * ( X'*(sigmoid_output - y) );
+
+regularisationComponent = (lambda/m)*theta;
+
+grad = gradientComponent + regularisationComponent;
+
+% Convention, do not regularise first parameters
+grad(1) = gradientComponent(1);
 
 % =============================================================
 
