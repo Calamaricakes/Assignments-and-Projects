@@ -34,7 +34,7 @@ regularisationComponent = (lambda/m)*theta;
 
 grad = gradientComponent + regularisationComponent;
 
-% Convention, do not regularise first parameters
+% Convention, do not regularise first parameters (x0)
 grad(1) = gradientComponent(1);
 
 % =============================================================
