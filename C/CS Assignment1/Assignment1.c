@@ -121,7 +121,7 @@ void* process_request(void* data_ptr){
     }
 
     // send data
-		if(read_file_into_buffer_and_send(fp, connfd, file_type) != SUCCESS){
+	if(read_file_into_buffer_and_send(fp, connfd, file_type) != SUCCESS){
         printf("unable to load into buffer\n");
 
         //clean up
@@ -150,12 +150,12 @@ int process_path(char* received, char* root, char* full_path){
 
   	// copy resource string into resource
   	for( resource_index = 0; received[path_index] != ' '; path_index++, resource_index++){
-    		resource[resource_index] = received[path_index];
+    	resource[resource_index] = received[path_index];
 
-    		if(resource[resource_index] == '.'){
-      			file_index = resource_index;
-    		}
-  	}
+    	if(resource[resource_index] == '.'){
+    			file_index = resource_index;
+    	}
+    }
 
   	//null resource string
   	resource[resource_index] = '\0';
@@ -237,39 +237,39 @@ int read_file_into_buffer_and_send(FILE* fp, int connfd, int file_type){
     int bytes_read;
 
     if(file_type != JPEG_TYPE){
-  			bytes_read = fread(send_buff, CHAR_SIZE, sizeof(send_buff), fp);
+		bytes_read = fread(send_buff, CHAR_SIZE, sizeof(send_buff), fp);
         send(connfd, send_buff, bytes_read, 0);
         return SUCCESS;
     }
-		else if(file_type > 0){
-  			fseek(fp, 0, SEEK_END);
-  			file_len = ftell(fp);
-  			fseek(fp, 0, SEEK_SET);
-  			fread(send_buff, file_len, sizeof(send_buff), fp);
+	else if(file_type > 0){
+		fseek(fp, 0, SEEK_END);
+		file_len = ftell(fp);
+		fseek(fp, 0, SEEK_SET);
+		fread(send_buff, file_len, sizeof(send_buff), fp);
         send(connfd, send_buff, file_len, 0);
         return SUCCESS;
-		}
+	}
     return ERROR;
 }
 
 int open_file(FILE**fp, int file_type, char* file_path){
 
     if( file_type != JPEG_TYPE ){
-    		if((*fp = fopen(file_path, "r")) != NULL){
-          printf("file opened 'r'\n");
-          return SUCCESS;
-    		}
+    	if((*fp = fopen(file_path, "r")) != NULL){
+            printf("file opened 'r'\n");
+            return SUCCESS;
+    	}
         else{
           printf("cannot open file 'r'\n");
         }
    	}
    	else{
-    		if((*fp = fopen(file_path, "rb")) != NULL){
+    	if((*fp = fopen(file_path, "rb")) != NULL){
             printf("file opened 'rb'\n");
-      			return SUCCESS;
-    		}
+      		return SUCCESS;
+    	}
         else{
-          printf("cannot open file 'rb'\n");
+            printf("cannot open file 'rb'\n");
         }
    	}
     return ERROR;
