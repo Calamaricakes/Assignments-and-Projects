@@ -63,15 +63,21 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 % add a column of ones to feed the bias node
+labels = zeros(num_labels, 1);
+
+for i = 1:num_labels
+    labels(i) = i;
+end
+
 X = [ones(m, 1) X];
 
-J_total = 0;
-labels = [1 2 3 4 5 6 7 8 9 10]';    % labels
-accummulator2 = zeros(26, 1);
+J_total = 0;   % labels
+accummulator2 = zeros(num_labels, hidden_layer_size+1);
 
 %%%%%% START PART 1
 % for each example
 for i = 1:m
+
     exampleVec = X(i, :);
     z2 = exampleVec * Theta1';          % 1 * n dimensions
     a2 = [ 1 sigmoid(z2) ];             % add bias node, 1 * (n + 1) then sigmoid function
@@ -80,14 +86,14 @@ for i = 1:m
     answerKey = (y(i) == labels);
     costFromExample = answerKey.*log(a3) + (1 - answerKey).*log(1 - a3);
     J_total = J_total + sum(costFromExample);
-    hypothesis = predictionVec(a3);
-    delta3 = (hypothesis - answerKey);
+    %hypothesis = predictionVec(a3);
+    delta3 = (a3 - answerKey);
     delta2 = (Theta2'*delta3) .* sigmoidGradient(z2);
     delta2 = delta2(2,end);
-    accummulator2 = accummulator2 + delta3*a2';
+    accummulator2 = accummulator2 + delta3*a2;
+
 end
 
-fprintf("\nJ_Total: %f\n", J_total);
 Theta1WithoutBias = Theta1(:, 2:end); % size(Theta1, 2)
 Theta2WithoutBias = Theta2(:, 2:end); % size(Theta2, 2)
 regularisationCostTheta1 = sum(sum(Theta1WithoutBias .* Theta1WithoutBias));

@@ -20,7 +20,7 @@ W = zeros(L_out, 1 + L_in);
 %
 
 episilon_init = 0.12;
-W = randout(L_out, 1 + L_in) * 2 * episilon_init - episilon_init;
+W = rand(L_out, 1 + L_in) * 2 * episilon_init - episilon_init;
 
 
 % =========================================================================
