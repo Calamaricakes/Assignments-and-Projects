@@ -47,7 +47,7 @@ int* insertIntoSortedArray(int* arr, int arrSizeBeforeInsertion, int num){
 
     int i = arrSizeBeforeInsertion - 1;
 
-    //shift everything larger to the right
+    //shift everything larger to the right if it is larger
     while(num < arr[i] && i >= 0){
         arr[i + 1] = arr[i];
         i--;
