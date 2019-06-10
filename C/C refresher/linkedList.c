@@ -64,7 +64,7 @@ int main(){
 void printSingleLinkedList(Node_t* linkedList){
 
     if(linkedList == NULL){
-        printf("NULL list\n");
+        printf("Empty list\n");
         return;
     }
 
