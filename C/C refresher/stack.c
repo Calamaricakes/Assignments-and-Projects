@@ -71,7 +71,7 @@ Node_t* pop(Node_t* linkedList){
         return linkedList;
     }
     else{
-        printf("%d ", linkedList->number);
+        printf("Pop: %d\n", linkedList->number);
         next = linkedList->next;
         free(linkedList);
         return next;
