@@ -24,7 +24,7 @@ int main(){
 
     printf("Please enter an option to enqueue('e'), dequeue('d'), print('p') or quit('q'): ");
 
-    while(scanf(" %c", &decision) != 'q'){
+    while(scanf(" %c", &decision)){
 
         switch (decision){
             case 'e':
@@ -49,6 +49,11 @@ int main(){
                 clearQueue(&queue_ptr);
                 printQueue(queue_ptr);
                 break;
+
+            case 'q':
+                clearQueue(&queue_ptr);
+                return 0;
+
         }
 
         printf("Please enter an option to enqueue('e'), dequeue('d'), print('p'), clear('c'), quit('q'): ");
