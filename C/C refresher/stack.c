@@ -6,76 +6,93 @@ typedef struct Node_t{
     struct Node_t* next;
 }Node_t;
 
+#define EMPTY -1
+
 void freeStack(Node_t* linkedList);
-Node_t* pop(Node_t* linkedList);
-Node_t* push(Node_t* linkedList, int number);
+int pop(Node_t** linkedList);
+void push(Node_t** linkedList, int number);
+void printStack(Node_t* linkedList);
 
 int main(){
 
-    int number;
-    char decision = 'n';
+    int inputNumber, number;
+    char decision;
     Node_t* linkedList = NULL;
 
-    printf("Enter integer for stack: ");
+    printf("Options: Push 'i', Pop: 'o', Exit: 'e'\n");
+    scanf(" %c", &decision);
 
-    while(scanf("%d", &number) != EOF){
-        linkedList = push(linkedList, number);
-        printf("Enter integer for stack: ");
-    }
+    while(decision != 'e'){
 
-    printf("Stack constructed\n");
+        switch(decision){
 
-    printf("Do you wish to pop the stack? y/n\n");
-    scanf("%c", &decision);
+            case 'i':
+                printf("Please enter integer for stack: ");
+                scanf("%d", &inputNumber);
+                push(&linkedList, inputNumber);
+                break;
 
-    while(decision == 'y'){
-        if(linkedList != NULL){
-            linkedList = pop(linkedList);
-            printf("\nDo you wish to pop the stack? y/n\n");
-            scanf(" %c", &decision);
+            case 'o':
+                number = pop(&linkedList);
+                printf("Pop: %d\n", number);
+                break;
+
+            case 'p':
+                printStack(linkedList);
+                break;
+
         }
-        else{
-            break;
-        }
+        printf("Options: Push 'i', Pop 'o', Print 'p', Exit 'e'\n");
+        scanf(" %c", &decision);
     }
 
     freeStack(linkedList);
     return 0;
 }
 
-Node_t* push(Node_t* linkedList, int number){
+void push(Node_t** linkedList, int number){
 
     Node_t* node;
 
-    if(linkedList == NULL){
-        linkedList = (Node_t*)malloc(1);
-        linkedList->number = number;
-        linkedList->next = NULL;
-        return linkedList;
+    if(*linkedList == NULL){
+        *linkedList = (Node_t*)malloc(1);
+        (*linkedList)->number = number;
+        (*linkedList)->next = NULL;
     }
     else{
         node = (Node_t*)malloc(1);
         node->number = number;
-        node->next = linkedList;
-        return node;
+        node->next = *linkedList;
+        *linkedList = node;
     }
 
 }
 
-Node_t* pop(Node_t* linkedList){
+int pop(Node_t** linkedList){
 
     Node_t* next = NULL;
+    int number;
 
     if(linkedList == NULL){
-        printf("Empty stack\n");
-        return linkedList;
+        printf("linkList empty.\n");
+        return EMPTY;
     }
     else{
-        printf("Pop: %d\n", linkedList->number);
-        next = linkedList->next;
-        free(linkedList);
-        return next;
+        number = (*linkedList)->number;
+        next = (*linkedList)->next;
+        free(*linkedList);
+        *linkedList = next;
+        return number;
     }
+}
+
+void printStack(Node_t* linkedList){
+
+    while(linkedList != NULL){
+        printf("%d ", linkedList->number);
+        linkedList = linkedList->next;
+    }
+    printf("\n");
 }
 
 void freeStack(Node_t* linkedList){
@@ -88,5 +105,4 @@ void freeStack(Node_t* linkedList){
         free(linkedList);
         linkedList = next;
     }
-
 }
