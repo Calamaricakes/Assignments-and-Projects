@@ -2,6 +2,8 @@
 class MazeSolver:
 # Singleton class designed to solve simple maze puzzles
 
+    maze_solver = None
+
     class __MazeSolver:
 
         def __init__(self, maze):
@@ -14,7 +16,13 @@ class MazeSolver:
         def find_entry_point(self):
             self.maze_entry = self.maze.entry_point()
 
-    maze_solver = None
+        def solve_maze(self):
+
+            self.find_entry_point()
+
+        def construct_graph(self):
+            
+
 
     def __init__(self, maze):
 

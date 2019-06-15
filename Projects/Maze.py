@@ -20,17 +20,18 @@ class Maze:
 
     def _create_square(self, horizontal_position, vertical_position, symbol):
 
-        if symbol == '+':
-            return Wall(horizontal_position, vertical_position)
-        elif symbol == '@':
-            return Path(horizontal_position, vertical_position)
-        elif symbol == '%':
-            return Exit(horizontal_position, vertical_position)
-        elif symbol == '~':
-            self.entry_point = horizontal_position, vertical_position
-            return Entry(horizontal_position, vertical_position)
-        else:
-            return None
+        # creates an object for every type then returns the object corresponding to the symbol
+        # slightly inefficient, but cleaner than if...elif...else combination
+        # garbage collector will take care of the rest.
+
+        square_dictionary = {'@': Path(horizontal_position, vertical_position),
+                             '+': Wall(horizontal_position, vertical_position),
+                             '%': Exit(horizontal_position, vertical_position),
+                             '~': Entry(horizontal_position, vertical_position)}
+
+        default = None
+
+        return square_dictionary.get(symbol, default)
 
     def print_maze(self):
 
