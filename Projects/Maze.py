@@ -3,6 +3,8 @@ from Square import *
 
 class Maze:
 
+    # squares is a dictionary with the position as keys
+    # and values as the objects at the position
     squares = {}
 
     def __init__(self, horizontal_dimension, vertical_dimension):
@@ -47,3 +49,5 @@ class Maze:
         else:
             return self.entry_point
 
+    def maze_dimensions(self):
+        return self.horizontal_dimension,self.vertical_dimension
