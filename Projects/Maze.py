@@ -37,6 +37,12 @@ class Maze:
 
         return square_dictionary.get(symbol, None)
 
+    def return_entry_square(self):
+        return self.entry_square
+
+    def maze_dimensions(self):
+        return self.horizontal_dimension, self.vertical_dimension
+
     def print_maze(self):
 
         for vertical_index in range(self.vertical_dimension):
@@ -47,21 +53,15 @@ class Maze:
 
                 else:
                     print(Fore.GREEN + '{}'.format(square.return_symbol()), end='')
-
-
             print()
-
-    def return_entry_square(self):
-        return self.entry_square
-
-    def maze_dimensions(self):
-        return self.horizontal_dimension, self.vertical_dimension
 
     def print_solution(self, path_solution):
     # path solution is a list of Square objects in sequence from entry to exit
 
+        # creates a copy of the Square objects
         solution = deepcopy(self.squares)
 
+        # replace all the Path squares with Solution squares in the copy
         for square in path_solution:
 
             position = horizontal_pos, vertical_pos = square.return_position()
