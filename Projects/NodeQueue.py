@@ -7,18 +7,18 @@ class NodeQueue:
         # deque performs better from left side of list compared to pop(0) on normal list
         self.items = deque([])
 
-    def push(self, item):
+    def enqueue(self, item):
         self.items.append(item)
 
-    def pop(self):
+    def dequeue(self):
 
         # if the stack is not empty
         if self.items:
             return self.items.popleft()
 
         else:
-            None
+            return None
 
-    def stack_size(self):
+    def queue_size(self):
         return len(self.items)
 

@@ -1,4 +1,6 @@
 from Square import *
+from copy import deepcopy
+from colorama import Fore
 
 
 class Maze:
@@ -10,15 +12,17 @@ class Maze:
     def __init__(self, horizontal_dimension, vertical_dimension):
         self.horizontal_dimension = horizontal_dimension
         self.vertical_dimension = vertical_dimension
-        self.entry_point = None
+        self.entry_square = None
 
     def create_squares(self, maze_structure_txt):
 
-        for horizontal_index in range(self.horizontal_dimension):
-            for vertical_index in range(self.vertical_dimension):
-                symbol = maze_structure_txt[horizontal_index][vertical_index]
+        for vertical_index in range(self.vertical_dimension):
+            for horizontal_index in range(self.horizontal_dimension):
+                symbol = maze_structure_txt[vertical_index][horizontal_index]
                 position = horizontal_index, vertical_index
                 self.squares[position] = self._create_square(horizontal_index, vertical_index, symbol)
+                if symbol is '~':
+                    self.entry_square = self.squares[position]
 
     def _create_square(self, horizontal_position, vertical_position, symbol):
 
@@ -31,23 +35,48 @@ class Maze:
                              '%': Exit(horizontal_position, vertical_position),
                              '~': Entry(horizontal_position, vertical_position)}
 
-        default = None
-
-        return square_dictionary.get(symbol, default)
+        return square_dictionary.get(symbol, None)
 
     def print_maze(self):
 
-        for horizontal_index in range(self.horizontal_dimension):
-            for vertical_index in range(self.vertical_dimension):
+        for vertical_index in range(self.vertical_dimension):
+            for horizontal_index in range(self.horizontal_dimension):
                 square = self.squares[horizontal_index, vertical_index]
-                print(square.return_symbol(), end='')
+                if isinstance(square, Path):
+                    print(Fore.RED + '{}'.format(square.return_symbol()), end='')
+
+                else:
+                    print(Fore.GREEN + '{}'.format(square.return_symbol()), end='')
+
+
             print()
 
-    def return_entry_position(self):
-        if self.entry_point is None:
-            return None
-        else:
-            return self.entry_point
+    def return_entry_square(self):
+        return self.entry_square
 
     def maze_dimensions(self):
-        return self.horizontal_dimension,self.vertical_dimension
+        return self.horizontal_dimension, self.vertical_dimension
+
+    def print_solution(self, path_solution):
+    # path solution is a list of Square objects in sequence from entry to exit
+
+        solution = deepcopy(self.squares)
+
+        for square in path_solution:
+
+            position = horizontal_pos, vertical_pos = square.return_position()
+
+            solution[position] = Solution(horizontal_pos, vertical_pos)
+
+        for vertical_index in range(self.vertical_dimension):
+            for horizontal_index in range(self.horizontal_dimension):
+                square = solution[horizontal_index, vertical_index]
+
+                if isinstance(square, Solution):
+                    print(Fore.RED + '{}'.format(square.return_symbol()), end='')
+
+                else:
+                    print(Fore.GREEN + '{}'.format(square.return_symbol()), end='')
+            print()
+
+

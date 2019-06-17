@@ -32,6 +32,7 @@ def get_dimensions(file):
 
     # create a dictionary to hold the two dimensions
     dimensions = {"vertical": vertical_dimension, "horizontal": horizontal_dimension}
+
     return dimensions
 
 
