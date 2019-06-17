@@ -20,7 +20,7 @@ class MazeSolver:
         self.graph.clear()
         self.construct_graph()
 
-    def solve_maze(self):
+    def solve_maze_bfs(self):
         start_square = self.maze.return_entry_square()
 
         if start_square is None:
