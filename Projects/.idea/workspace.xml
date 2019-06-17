@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f8d12d0-fb9c-4329-b01a-930e6efad4a7" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MazeSolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/MazeSolver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/board4.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,10 +27,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Maze.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
+            <state relative-caret-position="349">
               <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
@@ -43,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MazeSolver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+            <state relative-caret-position="60">
+              <caret line="132" column="39" lean-forward="true" selection-start-line="132" selection-start-column="39" selection-end-line="132" selection-end-column="39" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -146,9 +142,9 @@
         <option value="$PROJECT_DIR$/NodeQueue.py" />
         <option value="$PROJECT_DIR$/board3.txt" />
         <option value="$PROJECT_DIR$/Maze.py" />
-        <option value="$PROJECT_DIR$/MazeSolver.py" />
         <option value="$PROJECT_DIR$/Main.py" />
         <option value="$PROJECT_DIR$/board4.txt" />
+        <option value="$PROJECT_DIR$/MazeSolver.py" />
       </list>
     </option>
   </component>
@@ -325,14 +321,14 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4888393" visible="true" weight="0.16202946" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4888393" visible="true" weight="0.40752864" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39782608" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32934782" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32934782" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.51116073" side_tool="true" visible="true" weight="0.16202946" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="9" sideWeight="0.51116073" side_tool="true" visible="true" weight="0.40752864" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32934782" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -438,22 +434,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MazeSolver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Maze.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -465,10 +461,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Maze.py">
+    <entry file="file://$PROJECT_DIR$/MazeSolver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
+        <state relative-caret-position="60">
+          <caret line="132" column="39" lean-forward="true" selection-start-line="132" selection-start-column="39" selection-end-line="132" selection-end-column="39" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
