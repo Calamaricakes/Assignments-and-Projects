@@ -17,7 +17,7 @@ My list of computing subjects completed in my degree are as follows in chronolog
   - [Algorithms and Data Structures](https://handbook.unimelb.edu.au/2019/subjects/comp20003)
   - [Database Systems](https://handbook.unimelb.edu.au/2019/subjects/info20003)
   - [Object Oriented Software Development](https://handbook.unimelb.edu.au/2019/subjects/swen20003)
-  - [Artificial Intelligence](https://handbook.unimelb.edu.au/2019/subjects/30024)
+  - [Artificial Intelligence](https://handbook.unimelb.edu.au/2019/subjects/comp30024)
   - [Computer Systems](https://handbook.unimelb.edu.au/2019/subjects/comp30023)
   - [IT Project](https://handbook.unimelb.edu.au/2019/subjects/comp30022)
   - [Declarative Programming](https://handbook.unimelb.edu.au/2019/subjects/comp30020)
