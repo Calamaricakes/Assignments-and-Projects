@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class minAndMax {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		int minNum, maxNum;
+		minNum = maxNum = 0;
+		
+		while(true){
+			System.out.println("Input a number: ");
+			String input = sc.nextLine();
+			
+			if (input == null && minNum == 0 && maxNum == 0){
+				System.out.println("No numbers were added");
+				break;
+			}
+			else if(input == null){
+				System.out.format("Min number: %d\nMax number: %d", minNum, maxNum);
+				break;
+			}
+			int num = Integer.parseInt(input);
+			System.out.println(num);
+			
+			if(num < minNum){
+				minNum = num;
+			}
+			else if(num > maxNum){
+				maxNum = num;
+			}	
+		}
+		sc.close();	
+	}
+}

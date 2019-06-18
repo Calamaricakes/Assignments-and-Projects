@@ -1,0 +1,27 @@
+package textBookExercise;
+
+public class test {
+	
+	public static int max(int n1, int n2){
+		if(n1 > n2){
+			return n1;
+		}
+		else{
+			return n2;
+		}
+		
+	}
+	public static String max(String str1, String str2){
+		
+		if(str1.length()> str2.length()){
+			return str1;
+		}
+		else{
+			return str2;
+		}
+	}
+	public static void main(String[] args){
+		System.out.println(max(3, 4));
+		System.out.println(max("this is chicken", "this is fish"));
+	}
+}
