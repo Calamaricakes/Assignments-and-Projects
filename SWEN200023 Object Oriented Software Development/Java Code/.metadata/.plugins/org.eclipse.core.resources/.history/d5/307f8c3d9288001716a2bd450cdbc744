@@ -1,0 +1,28 @@
+
+public class MethodPractice {
+	
+	public static int numberOfWords(String str1){
+			return str1.split(" ").length;	
+	}
+	
+	public static String longestTitle(String[] str_arr){
+		int max_words_in_str = -1;
+		int str_with_max_words = -1; //place holders
+		
+		for(int i = 0; i < str_arr.length; i++){
+			if(str_arr[i].length() > max_words_in_str){
+				max_words_in_str = str_arr[i].length();
+				str_with_max_words = i;
+			}
+		}
+		return str_arr[str_with_max_words];
+		
+	}
+	
+	
+	public static void main(String[] args){
+			System.out.println(numberOfWords("There was a truck in the field"));
+			System.out.println(longestTitle({"There was a truck", "There is one car", "this"}));
+			
+	}
+}
