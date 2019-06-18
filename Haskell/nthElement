@@ -1,5 +1,0 @@
-elementN :: Int -> [a] -> a
-elementN _ [] = error "Empty List"
-elementN n (x:xs)
-    | n == 1 = x
-    | otherwise = elementN n-1 xs

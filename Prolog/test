@@ -1,7 +1,0 @@
-
-list_of( _ , []).
-list_of( X, [X | XS] ) = list_of( X, XS).
-
-all_same( [] ).
-all_same( [X] ).
-all_same( [X | XS]) :- all_same(XS)
