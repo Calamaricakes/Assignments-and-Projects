@@ -27,7 +27,7 @@ function global:deactivate ([switch]$NonDestructive) {
 
 deactivate -nondestructive
 
-$env:VIRTUAL_ENV="C:\Users\User\Desktop\Coding Programs\Assignment-repository\Projects\venv"
+$env:VIRTUAL_ENV="C:\Users\Prothean\Desktop\Code Folder\Projects\Maze Solver\venv"
 
 if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Set the prompt to include the env name

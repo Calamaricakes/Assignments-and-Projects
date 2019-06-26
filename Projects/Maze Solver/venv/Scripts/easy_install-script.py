@@ -1,4 +1,4 @@
-#!"C:\Users\User\Desktop\Coding Programs\Assignment-repository\Projects\venv\Scripts\python.exe"
+#!"C:\Users\Prothean\Desktop\Code Folder\Projects\Maze Solver\venv\Scripts\python.exe"
 # EASY-INSTALL-ENTRY-SCRIPT: 'setuptools==40.8.0','console_scripts','easy_install'
 __requires__ = 'setuptools==40.8.0'
 import re

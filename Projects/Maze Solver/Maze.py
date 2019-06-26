@@ -51,8 +51,12 @@ class Maze:
                 if isinstance(square, Path):
                     print(Fore.RED + '{}'.format(square.return_symbol()), end='')
 
+                elif isinstance(square, Entry) or isinstance(square, Exit):
+                    print(Fore.BLUE + '{}'.format(square.return_symbol()), end='')
+
                 else:
                     print(Fore.GREEN + '{}'.format(square.return_symbol()), end='')
+
             print()
 
     def print_solution(self, path_solution):

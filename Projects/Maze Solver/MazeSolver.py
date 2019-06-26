@@ -22,7 +22,7 @@ class MazeSolver:
         self.construct_graph()
 
     def solve_maze_bfs(self):
-    # uses a breadth first search to find the path from the starting square '~'
+    # uses breadth first search to find the path from the starting square '~'
     # to the end square '%'
     # The input maze has a possibility of cycles
     # return: A list of Square objects in sequencial order from the start to the end
@@ -41,7 +41,7 @@ class MazeSolver:
         # pop the start node into the queue
         queue.enqueue(start_node)
 
-        # since the each step is of uniform cost, do not explore alternate paths
+        # since each step is of uniform cost, do not explore alternate paths
         explored = set()
 
         explored.add(start_square)
@@ -99,7 +99,7 @@ class MazeSolver:
         return False
 
     def construct_edge_from_square(self, square):
-    # function determines the squares that can be reached from square
+    # function determines the squares that can be reached from the current square
     # and adds it to the dictionary
     # Dictionary is of the form dict[Square] = [Square, Square,...]
 
