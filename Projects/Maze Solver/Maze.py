@@ -6,7 +6,7 @@ from colorama import Fore
 class Maze:
 
     # squares is a dictionary with the position as keys
-    # and values as the objects at the position
+    # and values as the Square objects at the position
     squares = {}
 
     def __init__(self, horizontal_dimension, vertical_dimension):
