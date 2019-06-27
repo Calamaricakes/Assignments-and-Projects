@@ -11,7 +11,7 @@ Languages used in the project folder are as follows:
   - Haskell
   - Prolog
 
-My list of computing subjects completed in my degree are as follows in chronological order:
+My list of computing subjects completed in my degree in chronological order:
   - [Foundations of Computing](https://handbook.unimelb.edu.au/2019/subjects/comp10001)
   - [Foundations of Algorithms](https://handbook.unimelb.edu.au/2019/subjects/comp10002)
   - [Algorithms and Data Structures](https://handbook.unimelb.edu.au/2019/subjects/comp20003)
