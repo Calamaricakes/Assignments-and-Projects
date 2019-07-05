@@ -5,7 +5,7 @@ from time import time
 
 if __name__ == "__main__":
 
-    maze = create_board("board1.txt")
+    maze = create_board("board4.txt")
 
     maze.print_maze()
 
