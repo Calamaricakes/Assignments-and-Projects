@@ -1,3 +1,0 @@
-C:/Users/Prothean/Desktop/Code Folder/Projects/ElectricityCompare/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/Prothean/Desktop/Code Folder/Projects/ElectricityCompare/cmake-build-debug/CMakeFiles/ElectricityCompare.dir
-C:/Users/Prothean/Desktop/Code Folder/Projects/ElectricityCompare/cmake-build-debug/CMakeFiles/edit_cache.dir
