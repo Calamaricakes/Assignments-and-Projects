@@ -8,6 +8,7 @@
 #define EQUAL 0
 #define LINE_INPUT_SIZE 1024
 #define HALF_HOURS_IN_A_DAY 48
+#define BASE_TEN 10
 #define NMI_LENGTH 11
 #define SERIAL_NUMBER_LENGTH 6
 #define SMART_METER_READER_CSV_PROTEAN "C:\\Users\\Prothean\\Desktop\\Code Folder\\Projects\\ElectricityCompare\\Electricity\\Victorian Energy Compare Data.csv"
@@ -119,24 +120,32 @@ DayUsageNode* processElectricityData(char* stringConsumptionData){
 
     char* tokenDate_ptr = NULL;
     DateNode* dateNode_ptr = (DateNode*)malloc(1);
+    char* endPoint = NULL;
+    short tempInt = 0;
 
     // point the usageNode to the newly created dateNode
     usageNode_ptr->date_ptr = dateNode_ptr;
 
     // "27"
     tokenDate_ptr = strtok(token_ptr, "/");
-    dateNode_ptr->day = atoi(tokenDate_ptr);
+    if((tempInt = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
+        dateNode_ptr->day = tempInt;
+    }
     printf("Day: %d\n", dateNode_ptr->day);
 
     // "11"
     tokenDate_ptr = strtok(NULL, "/");
-    dateNode_ptr->month = atoi(tokenDate_ptr);
-    printf("Month: %d\n",usageNode_ptr->date_ptr->month);
+    if((tempInt = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
+        dateNode_ptr->month = tempInt;
+    }
+    printf("Month: %d\n", dateNode_ptr->month);
 
     // "2017"
     tokenDate_ptr = strtok(NULL, "/");
-    dateNode_ptr->year = atoi(tokenDate_ptr);
-    printf("Year: %d\n", usageNode_ptr->date_ptr->year);
+    if((tempInt = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
+        dateNode_ptr->year = tempInt;
+    }
+    printf("Year: %d\n", dateNode_ptr->year);
 
     // NULL the ptr
     tokenDate_ptr = strtok(NULL, "/");
