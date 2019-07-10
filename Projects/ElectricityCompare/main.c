@@ -8,6 +8,7 @@
 #define EQUAL 0
 #define LINE_INPUT_SIZE 1024
 #define HALF_HOURS_IN_A_DAY 48
+#define DAYS_IN_TEN_YEARS 3650
 #define BASE_TEN 10
 #define NMI_LENGTH 11
 #define SERIAL_NUMBER_LENGTH 6
@@ -29,6 +30,8 @@ typedef struct DayUsageNode{
 }DayUsageNode;
 
 DayUsageNode* processElectricityData(char* stringConsumptionData);
+void freeUsageNode(DayUsageNode* node_ptr);
+void printUsageNode(DayUsageNode* node_ptr);
 
 int main(){
 
@@ -38,7 +41,12 @@ int main(){
     char consumptionDataPerDay[LINE_INPUT_SIZE];
     char titleLine[LINE_INPUT_SIZE];
 
-    char* token_ptr = NULL;
+    // DayUsageNode* usageData[DAYS_IN_TEN_YEARS];
+    DayUsageNode* usageData;
+    short usageDataCounter = 0;
+
+    // iterators
+    int i;
 
     file_ptr = fopen(SMART_METER_READER_CSV_PROTEAN, "r");
 
@@ -47,13 +55,18 @@ int main(){
         fgets(titleLine, LINE_INPUT_SIZE, file_ptr);
         printf("%s\n", titleLine);
 
-        // get a line that corresponds to the
-        // electricity usage of that day
-        //while
-        fgets(consumptionDataPerDay, LINE_INPUT_SIZE, file_ptr);
-        printf("%s\n", consumptionDataPerDay);
+        // get a line that corresponds to the electricity usage of that day
 
-        processElectricityData(consumptionDataPerDay);
+        fgets(consumptionDataPerDay, LINE_INPUT_SIZE, file_ptr);
+        usageData = processElectricityData(consumptionDataPerDay);
+        printUsageNode(usageData);
+
+    /*
+        for(i = 0; i < usageDataCounter; i++){
+            printUsageNode(usageData[i]);
+            freeUsageNode(usageData[i]);
+        }
+    */
 
     }
     else{
@@ -96,12 +109,10 @@ DayUsageNode* processElectricityData(char* stringConsumptionData){
     // In the example, string value of "6601824251"
     strcpy(usageNode_ptr->NMI_nationalMeterIdentifier,token_ptr);
     token_ptr = strtok(NULL, ",");
-    printf("NMI: %s\n", usageNode_ptr->NMI_nationalMeterIdentifier);
 
     // "975459"
     strcpy(usageNode_ptr->meterSerialNumber,token_ptr);
     token_ptr = strtok(NULL, ",");
-    printf("Serial Number:%s\n", usageNode_ptr->meterSerialNumber);
 
     // "Consumption", input could also be "Generation"
     // if the household is consuming electricity
@@ -113,7 +124,6 @@ DayUsageNode* processElectricityData(char* stringConsumptionData){
         usageNode_ptr->generatingElectricity = TRUE;
     }
     token_ptr = strtok(NULL, ",");
-    printf("Consumption: %d\n", usageNode_ptr->generatingElectricity);
 
     // it gets a little messy here, the dates are in a dd/mm/yyyy format, in the example: 27/11/2017
     // so we have to tokenise the tokenised string again then put it in a DateNode
@@ -131,26 +141,44 @@ DayUsageNode* processElectricityData(char* stringConsumptionData){
     if((tempInt = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
         dateNode_ptr->day = tempInt;
     }
-    printf("Day: %d\n", dateNode_ptr->day);
+    else{
+        printf("Day parsing error\n");
+    }
 
     // "11"
     tokenDate_ptr = strtok(NULL, "/");
     if((tempInt = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
         dateNode_ptr->month = tempInt;
     }
-    printf("Month: %d\n", dateNode_ptr->month);
+    else{
+        printf("Month parsing error\n");
+    }
 
     // "2017"
     tokenDate_ptr = strtok(NULL, "/");
     if((tempInt = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
         dateNode_ptr->year = tempInt;
     }
-    printf("Year: %d\n", dateNode_ptr->year);
+    else{
+        printf("Year parsing error\n");
+    }
 
     // NULL the ptr
     tokenDate_ptr = strtok(NULL, "/");
 
+    printUsageNode(usageNode_ptr);
+
     // precaution
-    free(usageNode_ptr);
-    free(dateNode_ptr);
+    return usageNode_ptr;
+}
+
+void freeUsageNode(DayUsageNode* node_ptr){
+    free(node_ptr->date_ptr);
+    free(node_ptr);
+}
+
+void printUsageNode(DayUsageNode* node_ptr){
+    printf("NMI: %s, Serial Number:%s, Consumption: %d, Day: %d, Month: %d, Year: %d\n",
+           node_ptr->NMI_nationalMeterIdentifier, node_ptr->meterSerialNumber, node_ptr->generatingElectricity,
+           node_ptr->date_ptr->day, node_ptr->date_ptr->month, node_ptr->date_ptr->year);
 }
