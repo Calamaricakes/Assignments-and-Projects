@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <malloc.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -9,6 +8,7 @@
 #define LINE_INPUT_SIZE 1024
 #define HALF_HOURS_IN_A_DAY 48
 #define DAYS_IN_TEN_YEARS 3650
+#define DATE_STRING_LENGTH 11
 #define BASE_TEN 10
 #define NMI_LENGTH 11
 #define SERIAL_NUMBER_LENGTH 6
@@ -24,7 +24,7 @@ typedef struct DateNode{
 typedef struct DayUsageNode{
     char NMI_nationalMeterIdentifier[NMI_LENGTH];
     char meterSerialNumber[SERIAL_NUMBER_LENGTH];
-    unsigned char generatingElectricity;
+    short generatingElectricity;
     DateNode* date_ptr;
     float consumptionByHalfHour[HALF_HOURS_IN_A_DAY];
 }DayUsageNode;
@@ -41,8 +41,7 @@ int main(){
     char consumptionDataPerDay[LINE_INPUT_SIZE];
     char titleLine[LINE_INPUT_SIZE];
 
-    // DayUsageNode* usageData[DAYS_IN_TEN_YEARS];
-    DayUsageNode* usageData;
+    DayUsageNode* usageData[DAYS_IN_TEN_YEARS];
     short usageDataCounter = 0;
 
     // iterators
@@ -57,16 +56,16 @@ int main(){
 
         // get a line that corresponds to the electricity usage of that day
 
-        fgets(consumptionDataPerDay, LINE_INPUT_SIZE, file_ptr);
-        usageData = processElectricityData(consumptionDataPerDay);
-        printUsageNode(usageData);
+        while(fgets(consumptionDataPerDay, LINE_INPUT_SIZE, file_ptr)) {
+            usageData[usageDataCounter++] = processElectricityData(consumptionDataPerDay);
+        }
 
-    /*
         for(i = 0; i < usageDataCounter; i++){
             printUsageNode(usageData[i]);
             freeUsageNode(usageData[i]);
         }
-    */
+        printf("Number of days = %d", usageDataCounter);
+
 
     }
     else{
@@ -99,7 +98,7 @@ DayUsageNode* processElectricityData(char* stringConsumptionData){
 */
 
     char* token_ptr = NULL;
-    DayUsageNode* usageNode_ptr = (DayUsageNode*)malloc(1);
+    DayUsageNode* usageNode_ptr = (DayUsageNode*)malloc(sizeof(DayUsageNode));
 
     // initialise the tokeniser
     token_ptr = strtok(stringConsumptionData,",");
@@ -128,18 +127,25 @@ DayUsageNode* processElectricityData(char* stringConsumptionData){
     // it gets a little messy here, the dates are in a dd/mm/yyyy format, in the example: 27/11/2017
     // so we have to tokenise the tokenised string again then put it in a DateNode
 
+    DateNode* dateNode_ptr = NULL;
+    char dateString[DATE_STRING_LENGTH];
     char* tokenDate_ptr = NULL;
-    DateNode* dateNode_ptr = (DateNode*)malloc(1);
     char* endPoint = NULL;
-    short tempInt = 0;
+    short tempShort = 0;
 
+    // copy the date string over to dateString, this is meant for a separate tokeniser to work on the dateString
+    // and allow the initial tokeniser to move on from the date to the "Estimated" column.
+    strcpy(dateString, token_ptr);
+
+    dateNode_ptr = (DateNode*)malloc(sizeof(DateNode));
     // point the usageNode to the newly created dateNode
     usageNode_ptr->date_ptr = dateNode_ptr;
 
     // "27"
-    tokenDate_ptr = strtok(token_ptr, "/");
-    if((tempInt = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
-        dateNode_ptr->day = tempInt;
+    tokenDate_ptr = strtok(dateString, "/");
+
+    if((tempShort = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
+        dateNode_ptr->day = tempShort;
     }
     else{
         printf("Day parsing error\n");
@@ -147,8 +153,8 @@ DayUsageNode* processElectricityData(char* stringConsumptionData){
 
     // "11"
     tokenDate_ptr = strtok(NULL, "/");
-    if((tempInt = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
-        dateNode_ptr->month = tempInt;
+    if((tempShort = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
+        dateNode_ptr->month = tempShort;
     }
     else{
         printf("Month parsing error\n");
@@ -156,19 +162,26 @@ DayUsageNode* processElectricityData(char* stringConsumptionData){
 
     // "2017"
     tokenDate_ptr = strtok(NULL, "/");
-    if((tempInt = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
-        dateNode_ptr->year = tempInt;
+    if((tempShort = strtol(tokenDate_ptr, &endPoint, BASE_TEN))){
+        dateNode_ptr->year = tempShort;
     }
     else{
         printf("Year parsing error\n");
     }
 
-    // NULL the ptr
+    // NULL the ptr for safety
     tokenDate_ptr = strtok(NULL, "/");
 
-    printUsageNode(usageNode_ptr);
+    // iterator
+    int i;
 
-    // precaution
+    token_ptr = strtok(NULL, ",");
+
+    for(i = 0; i < HALF_HOURS_IN_A_DAY; i++){
+        usageNode_ptr->consumptionByHalfHour[i] = strtof(token_ptr, &endPoint);
+        token_ptr = strtok(NULL, ",");
+    }
+
     return usageNode_ptr;
 }
 
@@ -178,7 +191,8 @@ void freeUsageNode(DayUsageNode* node_ptr){
 }
 
 void printUsageNode(DayUsageNode* node_ptr){
-    printf("NMI: %s, Serial Number:%s, Consumption: %d, Day: %d, Month: %d, Year: %d\n",
+    printf("NMI: %s, Serial Number:%s, Generation: %d, Day: %d, Month: %d, Year: %d\n",
            node_ptr->NMI_nationalMeterIdentifier, node_ptr->meterSerialNumber, node_ptr->generatingElectricity,
            node_ptr->date_ptr->day, node_ptr->date_ptr->month, node_ptr->date_ptr->year);
+
 }
