@@ -1,0 +1,16 @@
+<h1> There are a certain number of words in the sentence </h1>
+
+<a href="{% url 'home' %}">Go Home</a>
+
+<h1>Your text:</h1>
+{{ fulltext }}
+
+<h1>Text Count:<h1>
+{{ textCount }}
+
+<h1>Word Count</h1>
+
+{% for word, countTotal in sortedWords %}
+    {{ word }} - {{ countTotal }}
+    <br />
+{% endfor %}
