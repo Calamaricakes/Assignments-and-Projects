@@ -83,60 +83,22 @@
         .rightColButton{
             style="margin:5px"
         }
+
+        .textScroll{
+            display: inline_block;
+            position: relative;
+            overflow: scroll;
+        }
     </style>
     <!-- Custom styles for this template -->
 </head>
 <body class="bg-dark" style="background-color: white">
-    <!--
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column" style="position: relative">
-        <header class="masthead mb-auto">
-            <div class="collapse bg-dark" id="navbarHeader">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-8 col-md-7 py-4">
-                            <h4 class="text-white">About</h4>
-                            <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-                        </div>
-                        <div class="col-sm-4 offset-md-1 py-4">
-                            <h4 class="text-white">Contact</h4>
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                                <li><a href="#" class="text-white">Like on Facebook</a></li>
-                                <li><a href="#" class="text-white">Email me</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="navbar navbar-dark bg-dark shadow-sm">
-                <div class="container d-flex justify-content-between">
-                    <a href="#" class="navbar-brand d-flex align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                        <strong>Album</strong>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-            </div>
-        </header>
-    </div>
-    -->
-    <!--
-    <main role="main" class="main-body center cover-container inner cover text-white">
-        <h1 class="cover-heading">Cover your page.</h1>
-        <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-        <p class="lead">
-            <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
-        </p>
-    </main> -->
-
     <div class="leftCol text-white">
         <h1 class="text-left" style="padding-left: 20px;">Projects</h1>
-        <div class="container">
+        <div class="container" style="width: relative; max-width: none;">
             <div class="column">
                 {% for item in "x"|ljust:"5" %}
-                <div class="card bg-dark border-light mb-3" style="width: relative;">
+                <div class="card bg-dark border-light mb-3">
                     <div class="card-body">
                         <img class="img-fluid"
                         src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Bacon_the_cat_-_WikiBacon_mascot.jpg"
@@ -164,37 +126,88 @@
             </footer>
         </div>
     </div>
-
+    <!--
     <div class="rightCol text-white text-center" style="padding: 5px">
         <div class="container-fluid">
             <img class="card-fluid"
             src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Bacon_the_cat_-_WikiBacon_mascot.jpg"
             style="width: 10rem; margin: auto;">
-            <p>Personal Introduction</p>
-
-            <footer class="footer" style="position: absolute; bottom: 0px;">
-                <div class="container" style="margin-bottom: 5px;">
-                  <div class="column col-sm">
-                    <div>
-                        <button type="button" class="btn btn-outline-primary btn-lg btn-block" style="margin: 1.5px">
-                            <strong>Resume</strong>
-                        </button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-outline-success btn-lg btn-block" style="margin: 1.5px">
-                            <strong>Contact</strong>
-                        </button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-outline-danger btn-lg btn-block" style="margin: 1.5px">
-                            <strong>Github</strong>
-                        </button>
-                    </div>
-                  </div>
-                </div>
-            </footer>
+            <div class="col text-red" style="height:50%">
+                <p>Personal Introduction</p>
+                <p>
+                    Hello and welcome to my website! Please do take a look at my
+                </p>
+            </div>
         </div>
+        <footer class="footer" style="position: absolute; bottom: 0px; height: 20%">
+            <div class="container" style="margin-bottom: 5px;">
+              <div class="column col-sm">
+                <div>
+                    <button type="button" class="btn btn-outline-primary btn-lg btn-block" style="margin: 1.5px">
+                        <strong>Resume</strong>
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-outline-success btn-lg btn-block" style="margin: 1.5px">
+                        <strong>Contact</strong>
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-outline-danger btn-lg btn-block" style="margin: 1.5px">
+                        <strong>Github</strong>
+                    </button>
+                </div>
+              </div>
+            </div>
+        </footer>
     </div>
+        -->
+    <div class="container-fluid rightCol text-white text-center" style="padding: 5px; overflow-x: hidden">
+        <div class="container-fluid" style="margin: 10px; height: 25%;">
+            <img class="card-fluid"
+            src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Bacon_the_cat_-_WikiBacon_mascot.jpg"
+            style="max-width:100%; max-height:100%; margin: auto;">
+        </div>
+        <div class="container-fluid textScroll" style="height: 60%;">
+            <p>Personal Introduction</p>
+            <p class="text-left" style="margin: 1.5px; position: relative;">
+                Hello and welcome to my website! Please do take a look at my
+                projects and give constructive feedback if you can!Hello and welcome to my website! Please do take a look at my
+                projects and give constructive feedback if you can!Hello and welcome to my website! Please do take a look at my
+                projects and give constructive feedback if you can!Hello and welcome to my website! Please do take a look at my
+                projects and give constructive feedback if you can!Hello and welcome to my website! Please do take a look at my
+                projects and give constructive feedback if you can!Hello and welcome to my website! Please do take a look at my
+                projects and give constructive feedback if you can!Hello and welcome to my website! Please do take a look at my
+                projects and give constructive feedback if you can!Hello and welcome to my website! Please do take a look at my
+                projects and give constructive feedback if you can!Hello and welcome to my website! Please do take a look at my
+                projects and give constructive feedback if you can!
+            </p>
+        </div>
+        <div class="container" style="margin-bottom: 5px; height: 15%">
+          <div class="column col-sm">
+            <div>
+                <button type="button" class="btn btn-outline-primary btn-lg btn-block" style="margin: 1.5px">
+                    <strong>Resume</strong>
+                </button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-success btn-lg btn-block" style="margin: 1.5px">
+                    <strong>Contact</strong>
+                </button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-danger btn-lg btn-block" style="margin: 1.5px">
+                    <strong>Github</strong>
+                </button>
+            </div>
+          </div>
+        </div>
+        <!--
+        <footer class="footer" style="position: absolute; bottom: 0px; height: 15%">
+        </footer>
+        -->
+    </div>
+
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
